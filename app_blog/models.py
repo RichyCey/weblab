@@ -8,16 +8,28 @@ from django.urls import reverse
 
 class Category(models.Model):
     category = models.CharField(u'Категорія',
-                                max_length=250, help_text=u'Максимум 250 символів')
+        max_length=250, help_text=u'Максимум 250 сим.')
     slug = models.SlugField(u'Слаг')
     objects = models.Manager()
 
     class Meta:
-        verbose_name = u'Стаття'
-        verbose_name_plural = u'Статті'
+        verbose_name = u'Категорія для публікації'
+        verbose_name_plural = u'Категорії для публікацій'
 
-def __str__(self):
+    def __str__(self):
         return self.category
+
+    def get_absolute_url(self):
+        try:
+            url = reverse('articles-category-list',
+                            kwargs={'slug': self.slug})
+        except:
+            url = "/"
+        return url
+
+
+    def __str__(self):
+            return self.category
 
 
 class Article(models.Model):
@@ -41,23 +53,22 @@ class Article(models.Model):
 
     class Meta:
         ordering = ['-pub_date']
-        verbose_name = u'Публікація'
-        verbose_name_plural = u'Публікації'
-
+        verbose_name = u'Статя'
+        verbose_name_plural = u'Статті'
     def __str__(self):
-        return self.title
+            return self.title
 
     def get_absolute_url(self):
         try:
             url = reverse('news-detail',
-                          kwargs={
-                              'year': self.pub_date.strftime("%Y"),
-                              'month': self.pub_date.strftime("%m"),
-                              'day': self.pub_date.strftime("%d"),
-                              'slug': self.slug,
-                          })
+                              kwargs={
+                                  'year': self.pub_date.strftime("%Y"),
+                                  'month': self.pub_date.strftime("%m"),
+                                  'day': self.pub_date.strftime("%d"),
+                                  'slug': self.slug,
+                              })
         except:
-            url = "/"
+                url = "/"
         return url
 
 

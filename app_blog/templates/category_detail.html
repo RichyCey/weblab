@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ item.category }}</title>
+</head>
+
+<body>
+    {% load static %}
+    <div>
+        <ol class="breadcrumb">
+            <li><a href="/">Головна</a></li>
+            <li><a href="{% url 'articles-list' %}">Публікації</a></li>
+        </ol>
+
+    </div>
+</body>
+</html>
